@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Bulya\Source\Repos\Lanit3\Lanit3.Model\dbModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\bulya\source\repos\Lanit32\Lanit3.Model\dbModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

@@ -14,9 +14,9 @@ namespace Lanit3.Model
     
     public partial class car
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string model { get; set; }
-        public short horsepower { get; set; }
+        public int horsepower { get; set; }
     
         public virtual person person { get; set; }
     }

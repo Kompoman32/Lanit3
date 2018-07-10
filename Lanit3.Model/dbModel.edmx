@@ -24,7 +24,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" Nullable="false" />
           <Property Name="birthdate" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="car" Relationship="dbModel.personcar" FromRole="person" ToRole="car" />
@@ -33,10 +33,10 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="model" Type="String" Nullable="false" />
           <NavigationProperty Name="person" Relationship="dbModel.personcar" FromRole="car" ToRole="person" />
-          <Property Name="horsepower" Type="Int16" Nullable="false" />
+          <Property Name="horsepower" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="personcar">
           <End Type="dbModel.person" Role="person" Multiplicity="1" />

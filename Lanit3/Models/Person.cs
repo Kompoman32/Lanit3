@@ -8,6 +8,11 @@ namespace Lanit3.Models
 {
     public class Person
     {
+        public Person()
+        {
+
+        }
+
         [JsonProperty("id")]
         public long Id { get; set; }
 

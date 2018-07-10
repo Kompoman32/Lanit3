@@ -14,8 +14,17 @@ namespace Lanit3.Controllers
         [Route("person")]
         public void Person([FromBody] Person person)
         {
-            // save person
-            throw new NotImplementedException();
+            if (!person.IsValid())
+            throw new HttpResponseException(HttpStatusCode.BadRequest);
+            try
+            {
+                DataBase.ModelContainer.personSet.Add(person.ParseToDb());
+                DataBase.ModelContainer.SaveChanges();
+            }
+            catch(Exception e)
+            {
+                throw new HttpResponseException(HttpStatusCode.Conflict);
+            }
         }
 
         [HttpPost]

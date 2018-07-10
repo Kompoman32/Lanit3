@@ -9,9 +9,13 @@ namespace Lanit3.Models
 {
     public class Person
     {
-        public Person()
+        public Person(){}
+        public Person(person p)
         {
-
+            Id = p.Id;
+            Name = p.name;
+            BirthDate = p.birthdate.ToString("dd.MM.yyyy");
+            Cars = p.car.Select(x=>new Car(x)).ToList();
         }
 
         [JsonProperty("id")]
@@ -41,7 +45,6 @@ namespace Lanit3.Models
                 return pers;
             }
             throw new ArgumentException();
-            
         }
     }
 }

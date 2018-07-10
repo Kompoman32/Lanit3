@@ -7,6 +7,16 @@ namespace Lanit3.Models
 {
     public class Car
     {
+        public Car(){}
+
+        public Car(car car)
+        {
+            Id = car.Id;
+            Model = car.model;
+            HorsePower = car.horsepower;
+            OwnerId = car.person.Id;
+        }
+
         [JsonProperty("id")]
         public long Id { get; set; }
 
@@ -24,11 +34,14 @@ namespace Lanit3.Models
             var person = DataBase.ModelContainer.personSet.First(x => x.Id == Id);
             return HorsePower > 0 && !DataBase.ModelContainer.carSet.Select(x => x.Id).Contains(Id) && person != null && person.birthdate <= DateTime.Today.AddYears(-18);
         }
-
+        
         public car ParseToDb()
         {
             var car = new car();
             car.Id = Id;
+            car.model = Model;
+            car.horsepower = HorsePower;
+            car.person = new person(){Id = OwnerId};
             return car;
         }
     }

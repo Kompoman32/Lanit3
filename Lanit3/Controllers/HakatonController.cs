@@ -31,8 +31,17 @@ namespace Lanit3.Controllers
         [Route("car")]
         public void Car([FromBody] Car car)
         {
-            // save car
-            throw new NotImplementedException();
+            if (!car.IsValid())
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            try
+            {
+                DataBase.ModelContainer.carSet.Add(car.ParseToDb());
+                DataBase.ModelContainer.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new HttpResponseException(HttpStatusCode.Conflict);
+            }
         }
 
         [HttpGet]
@@ -40,7 +49,18 @@ namespace Lanit3.Controllers
         public Person PersonWithCars(long personId)
         {
             // return person if exists
-            throw new NotImplementedException();
+            if (personId <= 0)
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            try
+            {
+                var pers = DataBase.ModelContainer.personSet.First(x => x.Id == personId);
+                Person person = new Person(pers);
+                return person;
+            }
+            catch (Exception e)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
         }
 
         [HttpGet]

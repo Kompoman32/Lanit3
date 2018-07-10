@@ -47,6 +47,9 @@ namespace Lanit3.Controllers
         [Route("statistics")]
         public Statistics Statistics()
         {
+            return new Statistics() { CarCount = 4, PersonCount = 0, UniqueVendorCount = 4 };
+
+
             // return statistics
             throw new NotImplementedException();
         }

@@ -18,6 +18,7 @@ namespace Lanit3
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            Models.DataBase.Init();
         }
     }
 }

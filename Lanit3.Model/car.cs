@@ -17,7 +17,6 @@ namespace Lanit3.Model
         public int Id { get; set; }
         public string model { get; set; }
         public short horsepower { get; set; }
-        public int ownerId { get; set; }
     
         public virtual person person { get; set; }
     }

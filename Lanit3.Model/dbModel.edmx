@@ -37,7 +37,6 @@
           <Property Name="model" Type="String" Nullable="false" />
           <NavigationProperty Name="person" Relationship="dbModel.personcar" FromRole="car" ToRole="person" />
           <Property Name="horsepower" Type="Int16" Nullable="false" />
-          <Property Name="ownerId" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="personcar">
           <End Type="dbModel.person" Role="person" Multiplicity="1" />

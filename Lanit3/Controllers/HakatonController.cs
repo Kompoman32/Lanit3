@@ -5,9 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using System.Web;
 using Lanit3.Models;
-
 
 namespace Lanit3.Controllers
 {
@@ -15,35 +13,60 @@ namespace Lanit3.Controllers
     {
         [HttpPost]
         [Route("person")]
-        public void Person([FromBody] Person person)
+        public HttpResponseMessage Person([FromBody] Person person)
         {
             if (!person.IsValid())
-            throw new HttpResponseException(HttpStatusCode.BadRequest);
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
             try
             {
+                Models.Statistics.NewPerson(person);
                 DataBase.ModelContainer.personSet.Add(person.ParseToDb());
                 DataBase.ModelContainer.SaveChanges();
+                return new HttpResponseMessage(HttpStatusCode.OK);
             }
             catch(Exception e)
             {
-                throw new HttpResponseException(HttpStatusCode.Conflict);
+                return new HttpResponseMessage(HttpStatusCode.Conflict);
             }
         }
 
         [HttpPost]
         [Route("car")]
-        public void Car([FromBody] Car car)
+        public HttpResponseMessage Car([FromBody] Car car)
         {
-            // save car
-            throw new NotImplementedException();
+            if (!car.IsValid())
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            try
+            {
+                Models.Statistics.NewCar(car);
+                DataBase.ModelContainer.carSet.Add(car.ParseToDb());
+                DataBase.ModelContainer.SaveChanges();
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            catch (Exception e)
+            {
+                return new HttpResponseMessage(HttpStatusCode.Conflict);
+            }
         }
 
         [HttpGet]
         [Route("personwithcars")]
-        public Person PersonWithCars(long personId)
+        [ResponseType(typeof(Person))]
+        public HttpResponseMessage PersonWithCars(HttpRequestMessage request, long personId)
         {
             // return person if exists
-            throw new NotImplementedException();
+            if (personId <= 0)
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            try
+            {
+                var pers = DataBase.ModelContainer.personSet.First(x => x.Id == personId);
+                Person person = new Person(pers);
+                return request.CreateResponse(HttpStatusCode.OK,person);
+            }
+            catch (Exception e)
+            {
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
+            }
         }
 
         [HttpGet]
@@ -51,25 +74,17 @@ namespace Lanit3.Controllers
         [ResponseType(typeof(Statistics))]
         public HttpResponseMessage Statistics(HttpRequestMessage request)
         {
-            var stat = new Statistics() { CarCount = 4, PersonCount = 0, UniqueVendorCount = 4 };
-
-            //return new HttpResponseMessage(HttpStatusCode.NotFound);
-            
+            var stat = Models.Statistics.GetStatistics();
             return request.CreateResponse(HttpStatusCode.OK, stat);
-            //var t  = Request.CreateErrorResponse(HttpStatusCode.BadRequest, new Exception());
-            //throw new HttpResponseException(HttpStatusCode.BadRequest);
-
-
-            // return statistics
-            throw new NotImplementedException();
         }
 
         [HttpGet]
         [Route("clear")]
         public void Clear()
         {
-            // clear database
-            throw new NotImplementedException();
+            DataBase.ModelContainer.carSet.RemoveRange(DataBase.ModelContainer.carSet);
+            DataBase.ModelContainer.personSet.RemoveRange(DataBase.ModelContainer.personSet);
+            DataBase.ModelContainer.SaveChanges();
         }
     }
 }

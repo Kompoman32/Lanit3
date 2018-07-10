@@ -50,26 +50,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="car.cs">
-      <DependentUpon>Lanit3.Cont.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
-    <Compile Include="dbModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Lanit3.Cont.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Lanit3.Cont.Context.tt</DependentUpon>
-    </Compile>
     <Compile Include="Lanit3.Cont.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Lanit3.Cont.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="person.cs">
-      <DependentUpon>Lanit3.Cont.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -81,20 +81,23 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <None Include="dbModel.edmx.diagram">
-      <DependentUpon>dbModel.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Lanit3.Cont.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Lanit3.Cont.Context.cs</LastGenOutput>
-      <DependentUpon>dbModel.edmx</DependentUpon>
-    </Content>
+    <Content Include="dbModel.edmx.sql" />
     <Content Include="Lanit3.Cont.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Lanit3.Cont.cs</LastGenOutput>
+      <DependentUpon>dbModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+      <DependentUpon>dbModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Model1.cs</LastGenOutput>
       <DependentUpon>dbModel.edmx</DependentUpon>
     </Content>
   </ItemGroup>

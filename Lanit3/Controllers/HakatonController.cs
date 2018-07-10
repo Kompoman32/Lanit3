@@ -4,7 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
+using System.Web;
 using Lanit3.Models;
+
 
 namespace Lanit3.Controllers
 {
@@ -45,9 +48,16 @@ namespace Lanit3.Controllers
 
         [HttpGet]
         [Route("statistics")]
-        public Statistics Statistics()
+        [ResponseType(typeof(Statistics))]
+        public HttpResponseMessage Statistics(HttpRequestMessage request)
         {
-            return new Statistics() { CarCount = 4, PersonCount = 0, UniqueVendorCount = 4 };
+            var stat = new Statistics() { CarCount = 4, PersonCount = 0, UniqueVendorCount = 4 };
+
+            //return new HttpResponseMessage(HttpStatusCode.NotFound);
+            
+            return request.CreateResponse(HttpStatusCode.OK, stat);
+            //var t  = Request.CreateErrorResponse(HttpStatusCode.BadRequest, new Exception());
+            //throw new HttpResponseException(HttpStatusCode.BadRequest);
 
 
             // return statistics

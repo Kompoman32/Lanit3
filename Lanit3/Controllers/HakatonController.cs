@@ -19,6 +19,7 @@ namespace Lanit3.Controllers
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             try
             {
+                Models.Statistics.NewPerson(person);
                 DataBase.ModelContainer.personSet.Add(person.ParseToDb());
                 DataBase.ModelContainer.SaveChanges();
                 return new HttpResponseMessage(HttpStatusCode.OK);
@@ -37,6 +38,7 @@ namespace Lanit3.Controllers
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             try
             {
+                Models.Statistics.NewCar(car);
                 DataBase.ModelContainer.carSet.Add(car.ParseToDb());
                 DataBase.ModelContainer.SaveChanges();
                 return new HttpResponseMessage(HttpStatusCode.OK);
@@ -69,10 +71,11 @@ namespace Lanit3.Controllers
 
         [HttpGet]
         [Route("statistics")]
-        public Statistics Statistics()
+        [ResponseType(typeof(Statistics))]
+        public HttpResponseMessage Statistics(HttpRequestMessage request)
         {
-            // return statistics
-            throw new NotImplementedException();
+            var stat = Models.Statistics.GetStatistics();
+            return request.CreateResponse(HttpStatusCode.OK, stat);
         }
 
         [HttpGet]

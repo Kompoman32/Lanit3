@@ -40,5 +40,21 @@ namespace Lanit3.Models
         {
             return LanitStatistics;
         }
+
+        public static void NewPerson(Person person)
+        {
+            LanitStatistics.PersonCount++;
+        }
+
+        public static void NewCar(Car car)
+        {
+            var vendor = car.Model.Split('-')[0].ToLower();
+            if (!UniqueVendors.Contains(vendor))
+            {
+                UniqueVendors.Add(vendor);
+                LanitStatistics.UniqueVendorCount++;
+            }
+            LanitStatistics.CarCount++;
+        }
     }
 }

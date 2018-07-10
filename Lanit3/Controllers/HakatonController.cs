@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 using Lanit3.Models;
 
 namespace Lanit3.Controllers
@@ -12,54 +13,57 @@ namespace Lanit3.Controllers
     {
         [HttpPost]
         [Route("person")]
-        public void Person([FromBody] Person person)
+        public HttpResponseMessage Person([FromBody] Person person)
         {
             if (!person.IsValid())
-            throw new HttpResponseException(HttpStatusCode.BadRequest);
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
             try
             {
                 DataBase.ModelContainer.personSet.Add(person.ParseToDb());
                 DataBase.ModelContainer.SaveChanges();
+                return new HttpResponseMessage(HttpStatusCode.OK);
             }
             catch(Exception e)
             {
-                throw new HttpResponseException(HttpStatusCode.Conflict);
+                return new HttpResponseMessage(HttpStatusCode.Conflict);
             }
         }
 
         [HttpPost]
         [Route("car")]
-        public void Car([FromBody] Car car)
+        public HttpResponseMessage Car([FromBody] Car car)
         {
             if (!car.IsValid())
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
             try
             {
                 DataBase.ModelContainer.carSet.Add(car.ParseToDb());
                 DataBase.ModelContainer.SaveChanges();
+                return new HttpResponseMessage(HttpStatusCode.OK);
             }
             catch (Exception e)
             {
-                throw new HttpResponseException(HttpStatusCode.Conflict);
+                return new HttpResponseMessage(HttpStatusCode.Conflict);
             }
         }
 
         [HttpGet]
         [Route("personwithcars")]
-        public Person PersonWithCars(long personId)
+        [ResponseType(typeof(Person))]
+        public HttpResponseMessage PersonWithCars(HttpRequestMessage request, long personId)
         {
             // return person if exists
             if (personId <= 0)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
             try
             {
                 var pers = DataBase.ModelContainer.personSet.First(x => x.Id == personId);
                 Person person = new Person(pers);
-                return person;
+                return request.CreateResponse(HttpStatusCode.OK,person);
             }
             catch (Exception e)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
             }
         }
 

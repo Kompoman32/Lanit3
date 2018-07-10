@@ -19,6 +19,7 @@ namespace Lanit3
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             Models.DataBase.Init();
+            Models.Statistics.Init();
         }
     }
 }

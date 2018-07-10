@@ -21,5 +21,8 @@ namespace Lanit3.Models
 
         [JsonProperty("birthdate")]
         public string BirthDate { get; set; }
+
+        [JsonProperty("cars")]
+        public List<Car> Cars { get; set; }
     }
 }

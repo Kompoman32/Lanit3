@@ -75,8 +75,9 @@ namespace Lanit3.Controllers
         [Route("clear")]
         public void Clear()
         {
-            // clear database
-            throw new NotImplementedException();
+            DataBase.ModelContainer.carSet.RemoveRange(DataBase.ModelContainer.carSet);
+            DataBase.ModelContainer.personSet.RemoveRange(DataBase.ModelContainer.personSet);
+            DataBase.ModelContainer.SaveChanges();
         }
     }
 }

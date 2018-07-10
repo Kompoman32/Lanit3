@@ -8,6 +8,11 @@ namespace Lanit3.Models
 {
     public class Person
     {
+        public Person()
+        {
+
+        }
+
         [JsonProperty("id")]
         public long Id { get; set; }
 
@@ -16,5 +21,8 @@ namespace Lanit3.Models
 
         [JsonProperty("birthdate")]
         public string BirthDate { get; set; }
+
+        [JsonProperty("cars")]
+        public List<Car> Cars { get; set; }
     }
 }

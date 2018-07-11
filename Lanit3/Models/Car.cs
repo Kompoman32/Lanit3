@@ -32,7 +32,7 @@ namespace Lanit3.Models
         public bool IsValid()
         {
             var person = DataBase.ModelContainer.personSet.First(x => x.Id == Id);
-            return HorsePower > 0 && !DataBase.ModelContainer.carSet.Select(x => x.Id).Contains(Id) && person != null && person.birthdate <= DateTime.Today.AddYears(-18) && Model.Contains('-');
+            return HorsePower > 0 && !DataBase.ModelContainer.carSet.Select(x => x.Id).Contains(Id) && person != null && person.birthdate <= DateTime.Today.AddYears(-18) && Model.Contains('-') && Model.Split('-')[0].Trim().Length > 0;
         }
         
         public car ParseToDb()

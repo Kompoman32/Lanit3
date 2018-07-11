@@ -85,6 +85,7 @@ namespace Lanit3.Controllers
             DataBase.ModelContainer.carSet.RemoveRange(DataBase.ModelContainer.carSet);
             DataBase.ModelContainer.personSet.RemoveRange(DataBase.ModelContainer.personSet);
             DataBase.ModelContainer.SaveChanges();
+            Models.Statistics.Clear();
         }
     }
 }

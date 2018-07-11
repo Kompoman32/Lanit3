@@ -17,7 +17,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="None" Nullable="false" />
     <Property Name="name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="birthdate" Type="datetime" Nullable="false" />
   </EntityType>
@@ -25,7 +25,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="None" Nullable="false" />
     <Property Name="model" Type="nvarchar(max)" Nullable="false" />
     <Property Name="horsepower" Type="int" Nullable="false" />
     <Property Name="person_Id" Type="bigint" Nullable="false" />
@@ -58,7 +58,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <Property Name="name" Type="String" Nullable="false" />
           <Property Name="birthdate" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="car" Relationship="dbModel.personcar" FromRole="person" ToRole="car" />
@@ -67,7 +67,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <Property Name="model" Type="String" Nullable="false" />
           <NavigationProperty Name="person" Relationship="dbModel.personcar" FromRole="car" ToRole="person" />
           <Property Name="horsepower" Type="Int32" Nullable="false" />

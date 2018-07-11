@@ -53,6 +53,11 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
+    <Compile Include="dbModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Lanit3.Cont.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -26,7 +26,7 @@ namespace Lanit3.Controllers
             }
             catch(Exception e)
             {
-                return new HttpResponseMessage(HttpStatusCode.Conflict);
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
         }
 
@@ -45,7 +45,7 @@ namespace Lanit3.Controllers
             }
             catch (Exception e)
             {
-                return new HttpResponseMessage(HttpStatusCode.Conflict);
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
         }
 
@@ -55,8 +55,8 @@ namespace Lanit3.Controllers
         public HttpResponseMessage PersonWithCars(HttpRequestMessage request, long personId)
         {
             // return person if exists
-            if (personId <= 0)
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            //if (personId <= 0)
+            //    return new HttpResponseMessage(HttpStatusCode.BadRequest);
             try
             {
                 var pers = DataBase.ModelContainer.personSet.First(x => x.Id == personId);

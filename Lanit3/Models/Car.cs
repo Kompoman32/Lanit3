@@ -7,7 +7,7 @@ namespace Lanit3.Models
 {
     public class Car
     {
-        public Car(){}
+        public Car() { }
 
         public Car(car car)
         {
@@ -43,14 +43,15 @@ namespace Lanit3.Models
                 return false;
             }
         }
-        
+
         public car ParseToDb()
         {
             var car = new car();
             car.Id = Id;
             car.model = Model;
             car.horsepower = HorsePower;
-            car.person = new person(){Id = OwnerId};
+            var pers = DataBase.ModelContainer.personSet.First(x => x.Id == OwnerId);
+            car.person = pers;
             return car;
         }
     }

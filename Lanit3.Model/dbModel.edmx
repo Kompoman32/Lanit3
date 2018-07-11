@@ -15,30 +15,32 @@
   </EntityContainer>
   <EntityType Name="personSet">
     <Key>
-      <PropertyRef Name="Id" />
+      <PropertyRef Name="IdP" />
     </Key>
-    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdP" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="birthdate" Type="datetime" Nullable="false" />
+    <Property Name="Id" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="carSet">
     <Key>
-      <PropertyRef Name="Id" />
+      <PropertyRef Name="IdC" />
     </Key>
-    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdC" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="model" Type="nvarchar(max)" Nullable="false" />
     <Property Name="horsepower" Type="int" Nullable="false" />
-    <Property Name="person_Id" Type="bigint" Nullable="false" />
+    <Property Name="Id" Type="bigint" Nullable="false" />
+    <Property Name="person_IdP" Type="bigint" Nullable="false" />
   </EntityType>
   <Association Name="personcar">
     <End Role="person" Type="dbModel.Store.personSet" Multiplicity="1" />
     <End Role="car" Type="dbModel.Store.carSet" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="person">
-        <PropertyRef Name="Id" />
+        <PropertyRef Name="IdP" />
       </Principal>
       <Dependent Role="car">
-        <PropertyRef Name="person_Id" />
+        <PropertyRef Name="person_IdP" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -56,21 +58,23 @@
         </EntityContainer>
         <EntityType Name="person">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="IdP" />
           </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdP" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" Nullable="false" />
           <Property Name="birthdate" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="car" Relationship="dbModel.personcar" FromRole="person" ToRole="car" />
+          <Property Name="Id" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="car">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="IdC" />
           </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdC" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="model" Type="String" Nullable="false" />
           <NavigationProperty Name="person" Relationship="dbModel.personcar" FromRole="car" ToRole="person" />
           <Property Name="horsepower" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int64" Nullable="false" />
         </EntityType>
         <Association Name="personcar">
           <End Type="dbModel.person" Role="person" Multiplicity="1" />
@@ -85,27 +89,29 @@
     <EntitySetMapping Name="personSet">
       <EntityTypeMapping TypeName="IsTypeOf(dbModel.person)">
         <MappingFragment StoreEntitySet="personSet">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IdP" ColumnName="IdP" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="birthdate" ColumnName="birthdate" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="carSet">
       <EntityTypeMapping TypeName="IsTypeOf(dbModel.car)">
         <MappingFragment StoreEntitySet="carSet">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IdC" ColumnName="IdC" />
           <ScalarProperty Name="model" ColumnName="model" />
           <ScalarProperty Name="horsepower" ColumnName="horsepower" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <AssociationSetMapping Name="personcar" TypeName="dbModel.personcar" StoreEntitySet="carSet">
       <EndProperty Name="person">
-        <ScalarProperty Name="Id" ColumnName="person_Id" />
+        <ScalarProperty Name="IdP" ColumnName="person_IdP" />
       </EndProperty>
       <EndProperty Name="car">
-        <ScalarProperty Name="Id" ColumnName="Id" />
+        <ScalarProperty Name="IdC" ColumnName="IdC" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

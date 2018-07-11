@@ -56,5 +56,10 @@ namespace Lanit3.Models
             }
             LanitStatistics.CarCount++;
         }
+
+        public static void Clear()
+        {
+            LanitStatistics = new Statistics();
+        }
     }
 }

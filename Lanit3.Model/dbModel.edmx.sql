@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/10/2018 14:21:40
--- Generated from EDMX file: C:\Users\bulya\source\repos\Lanit32\Lanit3.Model\dbModel.edmx
+-- Date Created: 07/11/2018 17:33:11
+-- Generated from EDMX file: C:\c#\Lanit3\Lanit3.Model\dbModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -38,18 +38,20 @@ GO
 
 -- Creating table 'personSet'
 CREATE TABLE [dbo].[personSet] (
-    [Id] bigint IDENTITY(1,1) NOT NULL,
+    [IdP] bigint IDENTITY(1,1) NOT NULL,
     [name] nvarchar(max)  NOT NULL,
-    [birthdate] datetime  NOT NULL
+    [birthdate] datetime  NOT NULL,
+    [Id] bigint  NOT NULL
 );
 GO
 
 -- Creating table 'carSet'
 CREATE TABLE [dbo].[carSet] (
-    [Id] bigint IDENTITY(1,1) NOT NULL,
+    [IdC] bigint IDENTITY(1,1) NOT NULL,
     [model] nvarchar(max)  NOT NULL,
     [horsepower] int  NOT NULL,
-    [person_Id] bigint  NOT NULL
+    [Id] bigint  NOT NULL,
+    [person_IdP] bigint  NOT NULL
 );
 GO
 
@@ -57,35 +59,35 @@ GO
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
 
--- Creating primary key on [Id] in table 'personSet'
+-- Creating primary key on [IdP] in table 'personSet'
 ALTER TABLE [dbo].[personSet]
 ADD CONSTRAINT [PK_personSet]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    PRIMARY KEY CLUSTERED ([IdP] ASC);
 GO
 
--- Creating primary key on [Id] in table 'carSet'
+-- Creating primary key on [IdC] in table 'carSet'
 ALTER TABLE [dbo].[carSet]
 ADD CONSTRAINT [PK_carSet]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    PRIMARY KEY CLUSTERED ([IdC] ASC);
 GO
 
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
 
--- Creating foreign key on [person_Id] in table 'carSet'
+-- Creating foreign key on [person_IdP] in table 'carSet'
 ALTER TABLE [dbo].[carSet]
 ADD CONSTRAINT [FK_personcar]
-    FOREIGN KEY ([person_Id])
+    FOREIGN KEY ([person_IdP])
     REFERENCES [dbo].[personSet]
-        ([Id])
+        ([IdP])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_personcar'
 CREATE INDEX [IX_FK_personcar]
 ON [dbo].[carSet]
-    ([person_Id]);
+    ([person_IdP]);
 GO
 
 -- --------------------------------------------------

@@ -20,9 +20,10 @@ namespace Lanit3.Model
             this.car = new HashSet<car>();
         }
     
-        public long Id { get; set; }
+        public long IdP { get; set; }
         public string name { get; set; }
         public System.DateTime birthdate { get; set; }
+        public long Id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<car> car { get; set; }

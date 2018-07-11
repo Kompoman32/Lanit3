@@ -11,6 +11,13 @@ namespace Lanit3.Controllers
 {
     public class HakatonController : ApiController
     {
+        private static object _lock;
+
+        static HakatonController()
+        {
+            _lock = new object();
+        }
+
         [HttpPost]
         [Route("person")]
         public HttpResponseMessage Person([FromBody] Person person)
@@ -19,12 +26,15 @@ namespace Lanit3.Controllers
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             try
             {
-                Models.Statistics.NewPerson(person);
-                DataBase.ModelContainer.personSet.Add(person.ParseToDb());
-                DataBase.ModelContainer.SaveChanges();
-                return new HttpResponseMessage(HttpStatusCode.OK);
+                lock (_lock)
+                {
+                    Models.Statistics.NewPerson(person);
+                    DataBase.ModelContainer.personSet.Add(person.ParseToDb());
+                    DataBase.ModelContainer.SaveChanges();
+                    return new HttpResponseMessage(HttpStatusCode.OK);
+                }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return new HttpResponseMessage(HttpStatusCode.Conflict);
             }
@@ -38,10 +48,15 @@ namespace Lanit3.Controllers
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             try
             {
-                Models.Statistics.NewCar(car);
-                DataBase.ModelContainer.carSet.Add(car.ParseToDb());
-                DataBase.ModelContainer.SaveChanges();
-                return new HttpResponseMessage(HttpStatusCode.OK);
+                lock (_lock)
+                {
+
+
+                    Models.Statistics.NewCar(car);
+                    DataBase.ModelContainer.carSet.Add(car.ParseToDb());
+                    DataBase.ModelContainer.SaveChanges();
+                    return new HttpResponseMessage(HttpStatusCode.OK);
+                }
             }
             catch (Exception e)
             {
@@ -54,14 +69,13 @@ namespace Lanit3.Controllers
         [ResponseType(typeof(Person))]
         public HttpResponseMessage PersonWithCars(HttpRequestMessage request, long personId)
         {
-            // return person if exists
             if (personId <= 0)
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             try
             {
                 var pers = DataBase.ModelContainer.personSet.First(x => x.Id == personId);
                 Person person = new Person(pers);
-                return request.CreateResponse(HttpStatusCode.OK,person);
+                return request.CreateResponse(HttpStatusCode.OK, person);
             }
             catch (Exception e)
             {
@@ -82,9 +96,14 @@ namespace Lanit3.Controllers
         [Route("clear")]
         public void Clear()
         {
-            DataBase.ModelContainer.carSet.RemoveRange(DataBase.ModelContainer.carSet);
-            DataBase.ModelContainer.personSet.RemoveRange(DataBase.ModelContainer.personSet);
-            DataBase.ModelContainer.SaveChanges();
+            lock (_lock)
+            {
+                DataBase.ModelContainer.carSet.RemoveRange(DataBase.ModelContainer.carSet);
+                DataBase.ModelContainer.personSet.RemoveRange(DataBase.ModelContainer.personSet);
+                DataBase.ModelContainer.SaveChanges();
+            }
+
         }
+
     }
 }
